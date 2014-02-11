@@ -1,5 +1,4 @@
-{% extends 'rango/base.html' %}
-{% block title %}{{ category_name }}{% endblock %}
+{% extends 'ReCap/base.html' %}
 
 {% block body_block %}
 <div class="hero-unit">
@@ -10,9 +9,8 @@
         {% if registered %}
         <p>Thank you for registering.</p>
 
-        <p><a href="/rango/login/">Login</a> when you are ready to rango.</p>
         {% else %}
-        <form class="form-signin span8" id="user_form" method="post" action="/rango/register/"
+        <form class="form-signin span8" id="user_form" method="post" action="/ReCap/register/"
               enctype="multipart/form-data">
             {% csrf_token %}
             <h2 class="form-signin-heading">Sign up Here</h2>
