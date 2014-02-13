@@ -42,4 +42,7 @@ def register(request):
         {'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
         context)
 
-
+def project(request):
+    context = RequestContext(request)
+    return render_to_response('recap/project.html', {}, context)
+    
