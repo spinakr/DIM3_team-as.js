@@ -16,8 +16,11 @@
             <h2 class="form-signin-heading">Sign up Here</h2>
             <!-- Display each form here -->
 
-
-             {{ user_form.as_p}}
+            {%   for field in user_form %}
+                {{ field.label}}<br>
+                {{ field}}<br>
+            {% endfor %}
+            {{ profile_form.as_p }}
 
 
             <br />

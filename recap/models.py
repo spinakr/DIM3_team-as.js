@@ -21,7 +21,8 @@ class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
 
-    role = models.CharField(max_length=2,
+    #Changed the max length as it returned an error when setting the role to either choices.
+    role = models.CharField(max_length=20,
                             choices=ROLE_CHOICES,
                             default=DEV)
     
