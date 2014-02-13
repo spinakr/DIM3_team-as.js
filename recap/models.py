@@ -10,6 +10,7 @@ class RecapProject(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class UserProfile(models.Model):
     DEV = 'DEV'
     PO = 'PO'
@@ -30,13 +31,15 @@ class UserProfile(models.Model):
     # Override the __unicode__() method to return out something meaningful!
     def __unicode__(self):
         return self.user.username
- 
+
+
 class Category(models.Model):
     name = models.CharField(max_length=20, primary_key=True)
     
     def __unicode__(self):
         return self.name 
-    
+
+
 class Requirement(models.Model):
     NOT_STARTED = 'NS'
     IN_PROGRESS =  'IP'
