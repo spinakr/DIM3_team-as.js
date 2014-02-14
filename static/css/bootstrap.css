@@ -5071,6 +5071,10 @@ button.close {
   border: 0;
   -webkit-appearance: none;
 }
+.category-column {
+  background-color: #eeeeee;
+  min-height: 100px;
+}
 .modal-open {
   overflow: hidden;
 }
