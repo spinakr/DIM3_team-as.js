@@ -13,29 +13,47 @@
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner">
-				<div class="container">
+				<div class="container-liquid" style="max-width: 100% ; padding-left: 15px">
 					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="brand" href="/rango/">ReCap</a>
+					<a class="brand" href="/recap/">ReCap</a>
 
 					<div class="nav-collapse collapse">
 						<ul class="nav pull-right">
-							<li class="navbar-text">
-								Welcome, Test User!
+							{% if user.is_authenticated %}
+                            <li class="navbar-text">
+								Welcome, {{user.username }}!
 							</li>
-							<li>
+                            <li>
 								<a href="/recap/logout/">Logout</a>
 							</li>
-							<li>
-								<a href="/recap/register/">Register</a>
-							</li>
-							<li>
-								<a href="/recap/login/">Login</a>
-							</li>
-						</ul>
+
+                            <li class="divider-vertical"></li>
+
+                            {% else %}
+                            <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+                            <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+                                        <form id="login_form" method="post" action="/recap/login/">
+                                        {% csrf_token %}
+                                        Username: <input type="text" name="username" value="" size="50" />
+                                        <br />
+                                        Password: <input type="password" name="password" value="" size="50" />
+                                        <br />
+
+                                        <input type="submit" value="submit" />
+                                        </form>
+                            </div>
+                            </li>
+
+                            <li>
+                                <a href="/recap/register/">Register</a>
+                            </li>
+                            {% endif %}
+						 </ul>
 						<ul class="nav">
 							<li>
 								<a href="/recap/about/">About</a>
