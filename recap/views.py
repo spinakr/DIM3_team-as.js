@@ -2,13 +2,19 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from recap.forms import UserForm, UserProfileForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
     context = RequestContext(request)
     context_dict = {}
     return render_to_response('recap/index.html', context_dict, context)
+
+
+def about(request):
+    context = RequestContext(request)
+    return render_to_response('recap/about.html', {})
 
 
 def register(request):
@@ -58,7 +64,7 @@ def user_login(request):
                 login(request, user)
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
             else:
-                return HttpResponse("Your Rango account is disabled.")
+                return HttpResponse("Your account is disabled.")
         else:
             print "Invalid login details: {0}, {1}".format(username, password)
             return HttpResponse("Invalid login details supplied.")
@@ -66,6 +72,11 @@ def user_login(request):
     else:
         return render_to_response(request.META.get('HTTP_REFERER', '/'), {}, context)
 
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/recap/')
 
 
 def project(request):
