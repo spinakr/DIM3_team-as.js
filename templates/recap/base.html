@@ -13,7 +13,7 @@
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner">
-				<div class="container-liquid" style="max-width: 100% ; padding-left: 15px">
+				<div class="container-liquid" style="padding-left: 15px">
 					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -25,7 +25,7 @@
 						<ul class="nav pull-right">
 							{% if user.is_authenticated %}
                             <li class="navbar-text">
-								Welcome, {{user.username }}!
+								Welcome, {{ user.username }}!
 							</li>
                             <li>
 								<a href="/recap/logout/">Logout</a>
@@ -39,6 +39,12 @@
                             <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
                                         <form id="login_form" method="post" action="/recap/login/">
                                         {% csrf_token %}
+                                        {% if invalid %}
+
+                                            <li class="navbar-text">
+                                                Invalid credentials
+                                            </li>
+                                        {% endif %}
                                         Username: <input type="text" name="username" value="" size="50" />
                                         <br />
                                         Password: <input type="password" name="password" value="" size="50" />
