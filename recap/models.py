@@ -15,14 +15,14 @@ class UserProfile(models.Model):
     DEV = 'DEV'
     PO = 'PO'
     ROLE_CHOICES = (
-        (DEV, 'Product Owner'),
-        (PO, 'Developer'),
+        (PO, 'Product Owner'),
+        (DEV, 'Developer'),
     )
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
 
     #Changed the max length as it returned an error when setting the role to either choices.
-    role = models.CharField(max_length=20,
+    role = models.CharField(max_length=3,
                             choices=ROLE_CHOICES,
                             default=DEV)
     

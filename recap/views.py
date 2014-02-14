@@ -1,6 +1,7 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from recap.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -8,13 +9,17 @@ from django.contrib.auth.decorators import login_required
 
 def index(request):
     context = RequestContext(request)
-    context_dict = {}
-    return render_to_response('recap/index.html', context_dict, context)
+
+    if request.GET:
+        return render_to_response('recap/index.html', {'invalid': True}, context)
+
+    else:
+        return render_to_response('recap/index.html', {}, context)
 
 
 def about(request):
     context = RequestContext(request)
-    return render_to_response('recap/about.html', {})
+    return render_to_response('recap/about.html', {}, context)
 
 
 def register(request):
@@ -66,11 +71,11 @@ def user_login(request):
             else:
                 return HttpResponse("Your account is disabled.")
         else:
-            print "Invalid login details: {0}, {1}".format(username, password)
-            return HttpResponse("Invalid login details supplied.")
+
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/recap/'))
 
     else:
-        return render_to_response(request.META.get('HTTP_REFERER', '/'), {}, context)
+        return render_to_response(request.META.get('HTTP_REFERER', '/recap/'), {}, context)
 
 
 @login_required
