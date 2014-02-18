@@ -7,6 +7,7 @@
 		<link href="{% static 'css/bootstrap-fluid-adj.css' %}" rel="stylesheet">
 		<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" media="screen">
 		<link href="{% static 'css/bootstrap-responsive.css' %}" rel="stylesheet">
+		<link href="{% static 'css/recap.css' %}" rel="stylesheet">
 		<title>ReCap - {% block title %}Capture Your Requirements!{% endblock %}</title>
 	</head>
 
@@ -24,42 +25,44 @@
 					<div class="nav-collapse collapse">
 						<ul class="nav pull-right">
 							{% if user.is_authenticated %}
-                            <li class="navbar-text">
+							<li class="navbar-text">
 								Welcome, {{ user.username }}!
 							</li>
-                            <li>
+							<li>
 								<a href="/recap/logout/">Logout</a>
 							</li>
 
-                            <li class="divider-vertical"></li>
+							<li class="divider-vertical"></li>
 
-                            {% else %}
-                            <li class="dropdown">
-                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
-                            <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-                                        <form id="login_form" method="post" action="/recap/login/">
-                                        {% csrf_token %}
-                                        {% if invalid %}
+							{% else %}
+							<li class="dropdown">
+								<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+								<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+									<form id="login_form" method="post" action="/recap/login/">
+										{% csrf_token %}
+										{% if invalid %}
 
-                                            <li class="navbar-text">
-                                                Invalid credentials
-                                            </li>
-                                        {% endif %}
-                                        Username: <input type="text" name="username" value="" size="50" />
-                                        <br />
-                                        Password: <input type="password" name="password" value="" size="50" />
-                                        <br />
+										<li class="navbar-text">
+											Invalid credentials
+										</li>
+										{% endif %}
+										Username:
+										<input type="text" name="username" value="" size="50" />
+										<br />
+										Password:
+										<input type="password" name="password" value="" size="50" />
+										<br />
 
-                                        <input type="submit" value="submit" />
-                                        </form>
-                            </div>
-                            </li>
+										<input type="submit" value="submit" />
+									</form>
+								</div>
+							</li>
 
-                            <li>
-                                <a href="/recap/register/">Register</a>
-                            </li>
-                            {% endif %}
-						 </ul>
+							<li>
+								<a href="/recap/register/">Register</a>
+							</li>
+							{% endif %}
+						</ul>
 						<ul class="nav">
 							<li>
 								<a href="/recap/about/">About</a>
@@ -85,5 +88,6 @@
 		<script src="{% static 'js/jquery-1.11.0.js' %}"></script>
 		<script src="{% static 'js/bootstrap.min.js' %}"></script>
 		<script src="{% static 'js/jquery-ui-1.10.4.custom.js' %}"></script>
+		<script src="{% static 'js/recap.js' %}"></script>
 	</body>
 </html>
