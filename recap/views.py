@@ -9,12 +9,12 @@ from django.contrib.auth.decorators import login_required
 
 def index(request):
     context = RequestContext(request)
-
-    if request.GET:
-        return render_to_response('recap/index.html', {'invalid': True}, context)
+    if not request.user.is_authenticated():
+        return render_to_response('recap/index.html', {}, context)
 
     else:
-        return render_to_response('recap/index.html', {}, context)
+        return render_to_response('recap/developer.html', {}, context)
+
 
 
 def about(request):

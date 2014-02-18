@@ -1,9 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends 'recap/base.html' %}
+{% load static %}
+{% block body_block %}
 
-</body>
-</html>
+<div class="bs-example">
+    <div class="list-group">
+        <a href="#" class="list-group-item active">
+            Pictures <span class="badge">25</span>
+        </a>
+        <a href="#" class="list-group-item">
+            Documents <span class="badge">145</span>
+        </a>
+        <a href="#" class="list-group-item">
+            Music <span class="badge">50</span>
+        </a>
+        <a href="#" class="list-group-item">
+            <span class="glyphicon glyphicon-film"></span> Videos <span class="badge">8</span>
+        </a>
+    </div>
+</div>
+
+<!--/row-->
+{% endblock %}
