@@ -26,7 +26,7 @@ class UserProfile(models.Model):
                             choices=ROLE_CHOICES,
                             default=DEV)
     
-    participates_in = models.ManyToManyField(RecapProject, related_name='projects', 
+    participates_in = models.ManyToManyField(RecapProject, related_name='userprofile',
                                              null=True, blank=True)
 
     # Override the __unicode__() method to return out something meaningful!

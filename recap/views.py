@@ -1,11 +1,10 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.urlresolvers import reverse
 from recap.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
+from recap.models import RecapProject, UserProfile
 
 def index(request):
     context = RequestContext(request)
@@ -13,7 +12,9 @@ def index(request):
         return render_to_response('recap/index.html', {}, context)
 
     else:
-        return render_to_response('recap/developer.html', {}, context)
+        user = request.user
+        project_list = RecapProject.objects.filter(userprofile__user=user)
+        return render_to_response('recap/developer.html', {'project_list': project_list}, context)
 
 
 

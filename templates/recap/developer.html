@@ -11,12 +11,9 @@
 
     <div class="row">
 
-        <div class="span1">...</div>
-        <div class="span1">...</div>
-        <div class="span1">...</div>
-        <div class="span1">...</div>
-        <div class="span1">...</div>
-        <div class="span1">...</div>
+        {% for project in project_list %}
+            <a href="{{ project.url }}"><div class="span3">{{ project.name }} </div></a>
+        {% endfor %}
 
     </div>
 

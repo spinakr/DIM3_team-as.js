@@ -37,79 +37,30 @@ li {
 
 }
 
+.span3 {
+    width: 300px;
+    height: 75px;
 
-
-
-/*Project list with dropdown effect */
-.developer-drop >ul {
-    margin: 0;
-    padding: 0;
-    list-style:none;
-    width: 500px;
-}
-
-.developer-drop >ul>li {
-    display:block;
     overflow: hidden;
-    margin: 0;
-    padding: 0;
-    list-style:none;
-    height:40px;
-    width: 500px;
 
-    background-color:silver;
+    color: black;
+    background: #B0B0B0 ;
+    margin: 15px;
+    padding: 10px;
 
-    /* CSS3 Transition drop down Effect */
-    transition: height 0.3s ease-in-out;
-    -moz-transition: height 0.3s ease-in-out;
-    -webkit-transition: height 0.3s ease-in-out;
-    -o-transition: height 0.3s ease-in-out;
-}
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
 
-.developer-drop >ul>li>h3 {
-    display:block;
-    margin: 0;
-    padding:10px;
-    height:19px;
-
-    border-top:#f0f0f0 0px solid;
-    font-family: Arial, Helvetica, sans-serif;
-    text-decoration:none;
-    color: #000;
-    background: #cccccc;
-
-    /* CSS3 Gradient Effect */
-    background: -moz-linear-gradient( top, #999999, #cccccc);
-    background: -webkit-gradient(linear, left top, left bottom, from(#999999), to(#cccccc));
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff999999, endColorstr=#ffcccccc); /* IE 7 */
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff999999, endColorstr=#ffcccccc)";   /* IE 8 */
-}
-
-.developer-drop >ul>li>div {
-    margin:0;
-    overflow: auto;
-    padding:10px;
-    height:220px;
-}
-
-.developer-drop >ul>li:hover {
-    height: 280px;
+    -webkit-box-shadow: #B3B3B3 4px 4px 4px;
+    -moz-box-shadow: #B3B3B3 4px 4px 4px;
+    box-shadow: #B3B3B3 4px 4px 4px
 
 }
 
-.developer-drop:hover>ul>li:hover>h3 {
-    /* Decorative CSS */
-    color:#fff;
-    background: #000000;
-
-    /* CSS3 Gradient Effect */
-    background: -moz-linear-gradient( top, #454545, #000000);
-    background: -webkit-gradient(linear, left top, left bottom, from(#454545), to(#000000)); /* Safari, Chrome */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff454545, endColorstr=#ff000000); /* IE 5.5 - IE 7 */
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff454545, endColorstr=#ff000000)";   /* IE 8 */
+.span3:hover{
+    background: #B8B8B8;
 }
 
-.developer-drop >ul>li>h3:hover {
 
-    cursor:pointer;
-}
+
