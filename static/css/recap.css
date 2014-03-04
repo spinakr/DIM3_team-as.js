@@ -37,7 +37,7 @@ li {
 
 }
 
-.span3 {
+#projectbox {
     width: 300px;
     height: 75px;
 
@@ -58,7 +58,7 @@ li {
 
 }
 
-.span3:hover{
+#projectbox:hover{
     background: #B8B8B8;
 }
 

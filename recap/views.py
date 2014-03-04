@@ -85,7 +85,7 @@ def user_logout(request):
     return HttpResponseRedirect('/recap/')
 
 
-def project(request):
+def project(request, project_name_url):
     context = RequestContext(request)
-    return render_to_response('recap/project.html', {}, context)
+    return render_to_response('recap/project.html', {'project': project_name_url}, context)
 

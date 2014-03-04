@@ -54,7 +54,7 @@ def add_requirement(regid, name, creation_date, modified_date,
 
 
 def add_project(name):
-    p = RecapProject.objects.get_or_create(name=name, url=name, description='This is a description for project 1.')[0]
+    p = RecapProject.objects.get_or_create(name=name, url=name.replace(' ', '-').lower(), description='This is a description for project 1.')[0]
     return p
 
 
