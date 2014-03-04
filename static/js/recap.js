@@ -4,4 +4,17 @@ $(function() {
       revert: true,
       containment: $("#content"),
     }).disableSelection();
-}); 
+});
+
+
+
+//Create new popup
+;(function($) {
+    $(function() {
+        $('#create_new_button').bind('click', function(e) {
+            e.preventDefault();
+            $('#create_new_prompt').bPopup();
+        });
+    });
+})(jQuery);
+
