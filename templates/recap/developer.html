@@ -13,8 +13,14 @@
             <!-- Element to pop up -->
 
 
+
     <div id="create_new_prompt">
         <span class="button b-close"><span>X</span></span>
+        <form action="/recap/" method="post">{% csrf_token %}
+            {{ project_form.as_p }}
+            <input type="submit" value="Submit" />
+
+            </form>
 
     </div>
 

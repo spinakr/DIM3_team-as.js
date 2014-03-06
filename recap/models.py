@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class RecapProject(models.Model):
     name = models.CharField(max_length=30, unique=True)
-    url = models.URLField(primary_key=True)
+    url = models.TextField(max_length=100, primary_key=True)
     description = models.TextField(blank=True)
     
     def __unicode__(self):
