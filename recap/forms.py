@@ -14,8 +14,7 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('role',)
-
+        fields = ()
 
 class ProjectForm(forms.ModelForm):
     participants = forms.ModelMultipleChoiceField(queryset=User.objects.all())

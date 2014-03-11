@@ -12,26 +12,27 @@ class RecapProject(models.Model):
 
 
 class UserProfile(models.Model):
-    DEV = 'DEV'
-    PO = 'PO'
-    ROLE_CHOICES = (
-        (PO, 'Product Owner'),
-        (DEV, 'Developer'),
-    )
+
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
 
-    #Changed the max length as it returned an error when setting the role to either choices.
-    role = models.CharField(max_length=3,
-                            choices=ROLE_CHOICES,
-                            default=DEV)
-    
     participates_in = models.ManyToManyField(RecapProject, related_name='userprofile',
                                              null=True, blank=True)
 
     # Override the __unicode__() method to return out something meaningful!
     def __unicode__(self):
         return self.user.username
+
+
+class Participates(models.Model):
+    DEV = 'DEV'
+    PO = 'PO'
+    ROLE_CHOICES = ((PO, 'Product Owner'), (DEV, 'Developer'), )
+
+    role = models.CharField(max_length=3, choices=ROLE_CHOICES, default=DEV)
+
+    user = models.ForeignKey(UserProfile)
+    project = models.ForeignKey(RecapProject)
 
 
 class Category(models.Model):

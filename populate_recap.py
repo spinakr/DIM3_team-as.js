@@ -60,16 +60,16 @@ def add_project(name):
 
 def add_user(uname, pw, email, role, participates_in):
     user = User.objects.create_user(uname, email, pw)
-    u = UserProfile.objects.get_or_create(user=user, role=role)[0]
+    u = UserProfile.objects.get_or_create(user=user)[0]
     for project in participates_in:
+        #Participates.objects.get_or_create(user=u, project=project, role=role)
         u.participates_in.add(project)
-
     return u
 
 
 if __name__ == '__main__':
     print "Starting ReCap population script..."
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DIM3_project.settings')
-    from recap.models import RecapProject, UserProfile, Category, Requirement
+    from recap.models import RecapProject, UserProfile, Category, Requirement, Participates
     from django.contrib.auth.models import User
     populate()
