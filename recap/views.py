@@ -4,7 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from recap.forms import UserForm, UserProfileForm, ProjectForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from recap.models import RecapProject, UserProfile, User
+from recap.models import RecapProject, UserProfile, User, Requirement
+from django.shortcuts import get_object_or_404, get_list_or_404
 
 
 def index(request):
@@ -106,7 +107,10 @@ def user_logout(request):
 
 def project(request, project_name_url):
     context = RequestContext(request)
-    return render_to_response('recap/project.html', {'project': project_name_url}, context)
+    print project_name_url
+    project = get_object_or_404(RecapProject, url=project_name_url)
+    requirements_list = get_list_or_404(Requirement, belongs_to=project_name_url)
+    return render_to_response('recap/project.html', {'project': project, 'requirements_list' : requirements_list}, context)
 
 
 

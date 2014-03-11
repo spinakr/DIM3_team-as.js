@@ -1,37 +1,40 @@
 {% extends 'recap/base.html' %}
 
 {% block body_block %}
-<h1>Example Project</h1>
+<h1>{{project.name}}</h1>
 <br />
 
 <div id="content" class="row show-grid">
 	<div class="span3">
 		<h3>MUST</h3>
 		<div class="category-column">
+
 			<ul class="inner-container">
+				{% for requirement in requirements_list %}
 				<li class="requirement-container">
-					EP-100
+					<b>{{requirement.regid}}: </b>{{ requirement.name }}
 				</li>
-				<li class="requirement-container">
-					EP-101
-				</li>
-				<li class="requirement-container">
-					EP-102
-				</li>
+				{% endfor %}
 			</ul>
 		</div>
 	</div>
 	<div class="span3">
 		<h3>WOULD</h3>
-		<div class="category-column"><ul class="inner-container"></ul></div>
+		<div class="category-column">
+			<ul class="inner-container"></ul>
+		</div>
 	</div>
 	<div class="span3">
 		<h3>COULD</h3>
-		<div class="category-column"><ul class="inner-container"></ul></div>
+		<div class="category-column">
+			<ul class="inner-container"></ul>
+		</div>
 	</div>
 	<div class="span3">
 		<h3>WON'T</h3>
-		<div class="category-column"><ul class="inner-container"></ul></div>
+		<div class="category-column">
+			<ul class="inner-container"></ul>
+		</div>
 	</div>
 </div>
 {% endblock %}i
