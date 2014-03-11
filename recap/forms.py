@@ -22,3 +22,6 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = RecapProject
         fields = ('name', 'description')
+
+
+

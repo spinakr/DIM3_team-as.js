@@ -15,6 +15,9 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -26,6 +29,16 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default.
     }
 }
+
+if DEBUG:
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = '2014recap@gmail.com'
+    EMAIL_HOST_PASSWORD = 'recap12345'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = '2014recap@gmail.com'
+
+
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
