@@ -103,10 +103,9 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/recap/')
 
-
+@login_required
 def project(request, project_name_url):
     context = RequestContext(request)
-    print project_name_url
     requirements_by_category = []
     categorys = Category.objects.all().order_by('index')
     requirements_list = Requirement.objects.filter(belongs_to=project_name_url)
@@ -118,7 +117,24 @@ def project(request, project_name_url):
     
     return render_to_response('recap/project.html', {'project': project, 'reqs_by_category' : requirements_by_category}, context)
 
-
+@login_required
+def change_category(request):
+    context = RequestContext(request)
+    req_id = None
+    category = None
+    if request.method == 'POST':
+        req_id = request.POST['req_id']
+        category = request.POST['category']
+    
+    if req_id and category:
+        requirement = Requirement.objects.get(regid=req_id)
+        category = Category.objects.get(name=category)
+        requirement.category = category
+        requirement.save()
+    
+    return HttpResponse("Ajax completed!");
+    
+    
 
 
 

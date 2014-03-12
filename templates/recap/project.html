@@ -1,6 +1,7 @@
 {% extends 'recap/base.html' %}
 
 {% block body_block %}
+{% csrf_token %}
 <h1>{{project.name}}</h1>
 <br />
 
@@ -8,10 +9,10 @@
 	{% for category in reqs_by_category %}
 	<div class="span3">
 		<h3 class="uppercase">{{ category.name }}</h3>
-		<div class="category-column">
+		<div class="category-column" data-category="{{category.name}}">
 			<ul class="inner-container">
 				{% for requirement in category.requirements %}
-				<li class="requirement-container" data-category="{{requirement.category}}">
+				<li class="requirement-container" data-category="{{requirement.category}}" data-id="{{requirement.regid}}">
 					<b>{{requirement.regid}}: </b>{{ requirement.name }}
 				</li>
 				{% endfor %}
