@@ -25,7 +25,7 @@ urlpatterns = patterns('',
         {'post_reset_redirect' : '/user/password/done/'}),
                        (r'^user/password/done/$',
         'django.contrib.auth.views.password_reset_complete'),
-
-        url(r'(?P<project_name_url>[\w+-]*)$', views.project, name='project'),
+        url(r'(?P<project_name_url>[\w+-]*)/(?P<requirement_name_url>[\w+-]{2,})', views.requirement, name='requirement'),
+        url(r'(?P<project_name_url>[\w+-]*)(/*)$', views.project, name='project'),
 
         )

@@ -143,6 +143,9 @@ def change_category(request):
     return HttpResponse("Ajax completed!");
     
     
-
-
+def requirement(request, project_name_url, requirement_name_url):
+    context = RequestContext(request)
+    project = project_name_url
+    requirement = requirement_name_url
+    return render_to_response('recap/requirement.html', {'req': requirement, 'project': project}, context)
 

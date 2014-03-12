@@ -13,7 +13,7 @@
 			<ul class="inner-container">
 				{% for requirement in category.requirements %}
 				<li class="requirement-container" data-category="{{requirement.category}}" data-id="{{requirement.regid}}">
-					<b>{{requirement.regid}}: </b>{{ requirement.name }}
+                    <a href="/recap/{{ project.url }}/{{ requirement.regid }}"> <b>{{requirement.regid}}: </b> </a>{{ requirement.name }}
 				</li>
 				{% endfor %}
 			</ul>
