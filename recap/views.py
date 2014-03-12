@@ -106,6 +106,13 @@ def user_logout(request):
 @login_required
 def project(request, project_name_url):
     context = RequestContext(request)
+    # if new participant added:
+    if request.method == 'POST':
+        new_user = request.POST['new_user']
+        userprofil = UserProfile.objects.get(user__username=new_user)
+        project1 = RecapProject.objects.get(url=project_name_url)
+        userprofil.participates_in.add(project1)
+
     requirements_by_category = []
     categorys = Category.objects.all().order_by('index')
     requirements_list = Requirement.objects.filter(belongs_to=project_name_url)
@@ -114,8 +121,9 @@ def project(request, project_name_url):
         requirements_by_category.append({"name":category.name, 
                                          "requirements":requirements_list.filter(category=category.name)})
     project = get_object_or_404(RecapProject, url=project_name_url)
-    
-    return render_to_response('recap/project.html', {'project': project, 'reqs_by_category' : requirements_by_category}, context)
+    participants = User.objects.filter(userprofile__participates_in__url=project_name_url)
+
+    return render_to_response('recap/project.html', {'participants': participants, 'project': project, 'reqs_by_category' : requirements_by_category}, context)
 
 @login_required
 def change_category(request):

@@ -25,15 +25,21 @@
 
     <div class="panel">
         <ul>
-            <li>Anders</li>
-            <li>Anders</li>
-            <li>Anders</li>
-            <li>Anders</li>
+            {% for p in participants %}
+                <li>{{ p.username }}</li>
+            {% endfor %}
+            <li>
+                <form class="searchform" action="" method="post">
+                    {% csrf_token %}
+	                <input id="searchfield" type="text" name="new_user" placeholder="add new" >
+                    <input type="submit" style="visibility: hidden;"  />
 
+                </form>
+            </li>
         </ul>
 
     </div>
-    <a class="trigger" href="#">Users</a>
+    <a class="trigger" href="#">Participants</a>
 
 
 {% endblock %}i
