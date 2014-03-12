@@ -2,10 +2,10 @@ import os
 
 
 def populate():
-    cat1 = add_category('must')
-    cat2 = add_category('should')
-    cat3 = add_category('could')
-    cat4 = add_category("won't")
+    cat1 = add_category('must', 0)
+    cat2 = add_category('should', 1)
+    cat3 = add_category('could', 2)
+    cat4 = add_category("won't", 3)
 
     project1 = add_project('Silly Pointless Flea')
     project2 = add_project('Brave Zeus')
@@ -39,8 +39,8 @@ def populate():
     add_requirement('MAX1', 'Add something something to anything.', "2014-03-02", "2014-03-02", 1, 'NS', project4, cat1, None)
 
 
-def add_category(name):
-    c = Category.objects.get_or_create(name=name)[0]
+def add_category(name, index):
+    c = Category.objects.get_or_create(name=name, index=index)[0]
     return c
 
 

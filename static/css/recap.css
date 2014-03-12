@@ -23,8 +23,8 @@ ul.inner-container {
 	margin: 0;
 }
 
-ul {
-	
+.uppercase {
+	text-transform: uppercase;
 }
 
 li {

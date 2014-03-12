@@ -5,36 +5,19 @@
 <br />
 
 <div id="content" class="row show-grid">
+	{% for category in reqs_by_category %}
 	<div class="span3">
-		<h3>MUST</h3>
+		<h3 class="uppercase">{{ category.name }}</h3>
 		<div class="category-column">
-
 			<ul class="inner-container">
-				{% for requirement in requirements_list %}
-				<li class="requirement-container">
+				{% for requirement in category.requirements %}
+				<li class="requirement-container" data-category="{{requirement.category}}">
 					<b>{{requirement.regid}}: </b>{{ requirement.name }}
 				</li>
 				{% endfor %}
 			</ul>
 		</div>
 	</div>
-	<div class="span3">
-		<h3>WOULD</h3>
-		<div class="category-column">
-			<ul class="inner-container"></ul>
-		</div>
-	</div>
-	<div class="span3">
-		<h3>COULD</h3>
-		<div class="category-column">
-			<ul class="inner-container"></ul>
-		</div>
-	</div>
-	<div class="span3">
-		<h3>WON'T</h3>
-		<div class="category-column">
-			<ul class="inner-container"></ul>
-		</div>
-	</div>
+	{% endfor %}
 </div>
 {% endblock %}i

@@ -1,11 +1,10 @@
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from recap.forms import UserForm, UserProfileForm, ProjectForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from recap.models import RecapProject, UserProfile, User, Requirement
-from django.shortcuts import get_object_or_404, get_list_or_404
+from recap.models import RecapProject, UserProfile, User, Requirement, Category
 
 
 def index(request):
@@ -108,9 +107,16 @@ def user_logout(request):
 def project(request, project_name_url):
     context = RequestContext(request)
     print project_name_url
+    requirements_by_category = []
+    categorys = Category.objects.all().order_by('index')
+    requirements_list = Requirement.objects.filter(belongs_to=project_name_url)
+    # Group requirements by category
+    for category in categorys:
+        requirements_by_category.append({"name":category.name, 
+                                         "requirements":requirements_list.filter(category=category.name)})
     project = get_object_or_404(RecapProject, url=project_name_url)
-    requirements_list = get_list_or_404(Requirement, belongs_to=project_name_url)
-    return render_to_response('recap/project.html', {'project': project, 'requirements_list' : requirements_list}, context)
+    
+    return render_to_response('recap/project.html', {'project': project, 'reqs_by_category' : requirements_by_category}, context)
 
 
 

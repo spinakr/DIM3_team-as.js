@@ -3,6 +3,9 @@ $(function() {
 	  connectWith: ".inner-container",
       revert: true,
       containment: $("#content"),
+      update: function(event, ui) {
+      	console.log(ui.item.data("category"));
+      }
     }).disableSelection();
 });
 
