@@ -13,7 +13,7 @@
 			<ul class="inner-container">
 				{% for requirement in category.requirements %}
 				<li class="requirement-container" id="{{requirement.category}}_{{requirement.regid}}">
-					<b>{{requirement.regid}}: </b>{{ requirement.name }}
+					<a href="/recap/{{ project.url }}/{{ requirement.regid }}"> <b>{{requirement.regid}}: </b> </a>{{ requirement.name }}
 				</li>
 				{% endfor %}
 			</ul>
@@ -21,4 +21,25 @@
 	</div>
 	{% endfor %}
 </div>
+
+
+    <div class="panel">
+        <ul>
+            {% for p in participants %}
+                <li>{{ p.username }}</li>
+            {% endfor %}
+            <li>
+                <form class="searchform" action="" method="post">
+                    {% csrf_token %}
+	                <input id="searchfield" type="text" name="new_user" placeholder="add new" >
+                    <input type="submit" style="visibility: hidden;"  />
+
+                </form>
+            </li>
+        </ul>
+
+    </div>
+    <a class="trigger" href="#">Participants</a>
+
+
 {% endblock %}i
