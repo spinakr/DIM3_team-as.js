@@ -109,7 +109,7 @@ def project(request, project_name_url):
     # if new participant added:
     if request.method == 'POST':
         new_user = request.POST['new_user']
-        userprofil = UserProfile.objects.get(user__username=new_user)
+        userprofil = get_object_or_404(UserProfile, user__username=new_user)
         project1 = RecapProject.objects.get(url=project_name_url)
         userprofil.participates_in.add(project1)
 
@@ -168,6 +168,25 @@ def requirement(request, project_name_url, requirement_name_url):
     context = RequestContext(request)
     project_name = project_name_url
     requirement_object = Requirement.objects.get(regid=requirement_name_url)
-    return render_to_response('recap/requirement.html', {'req_obj': requirement_object, 'project': project_name}, context)
+    return render_to_response('recap/requirement.html', {'req_url': requirement_name_url, 'req_obj': requirement_object, 'project': project_name}, context)
 
 
+def edit_requirement(request, project_name_url, requirement_name_url):
+    if request.method == 'POST':
+        data=request.POST['sdf']
+
+    context = RequestContext(request)
+    pro = RecapProject.objects.get(url=project_name_url)
+    req = Requirement.objects.get(regid=requirement_name_url)
+
+    return render_to_response('recap/edit_req.html', {'project':pro, 'requirement': req}, context)
+
+
+def edit_project(request, project_name_url):
+    if request.method == 'POST':
+        data=request.POST['sdf']
+
+    context = RequestContext(request)
+    pro = RecapProject.objects.get(url=project_name_url)
+
+    return render_to_response('recap/edit_project.html', {'project':pro}, context)

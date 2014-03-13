@@ -2,8 +2,15 @@
 
 {% block body_block %}
 {% csrf_token %}
-<h1>{{project.name}}</h1>
-<br />
+<h1>{{project.name}}
+    <button id="create_new_button">+</button>
+    <form action="/recap/{{ project.url }}/edit" class="edit_button">
+        <input id="create_new_button_req" type="submit" value="Edit">
+    </form>
+
+</h1>
+
+    <br />
 
 <div id="content" class="row show-grid">
 	{% for category in reqs_by_category %}

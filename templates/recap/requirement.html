@@ -3,7 +3,7 @@
 {% block body_block %}
     <h1 style="display: inline">{{ req_obj.name }}</h1>
 
-        <form action="" class="edit_button">
+        <form action="/recap/{{ project }}/{{ req_url }}/edit" class="edit_button">
             <input id="create_new_button_req" type="submit" value="Edit">
         </form>
 
