@@ -1,10 +1,23 @@
 {% extends 'recap/base.html' %}
 {% load static %}
 {% block body_block %}
-<div class="hero-unit">
-    <h1>{{ req }}</h1>
-    <h1>{{ project }}</h1>
-</div>
+    <h1 style="display: inline">{{ req_obj.name }}</h1>
+
+        <form action="" class="edit_button">
+            <input id="create_new_button_req" type="submit" value="Edit">
+        </form>
+
+
+    <div class="line-separator"></div>
+
+    <h2 class="date">Creation date: {{ req_obj.creation_date }} </h2>
+    <h2>Category: {{ req_obj.category }}</h2>
+    <h2>Assigned to: {{ req_obj.responsible_person }}</h2>
+    <h2>Status: {{ req_obj.get_status_display }}</h2>
+    <div class="line-separator"></div>
+
+    <h2>{{ req_obj.description }}</h2>
+
 
 
 <!--/row-->

@@ -145,7 +145,7 @@ def change_category(request):
     
 def requirement(request, project_name_url, requirement_name_url):
     context = RequestContext(request)
-    project = project_name_url
-    requirement = requirement_name_url
-    return render_to_response('recap/requirement.html', {'req': requirement, 'project': project}, context)
+    project_name = project_name_url
+    requirement_object = Requirement.objects.get(regid=requirement_name_url)
+    return render_to_response('recap/requirement.html', {'req_obj': requirement_object, 'project': project_name}, context)
 
