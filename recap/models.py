@@ -58,7 +58,7 @@ class Requirement(models.Model):
     description = models.TextField(blank=True)
     creation_date = models.DateField();
     modified_date = models.DateField();
-    priority = models.IntegerField();
+    index = models.IntegerField();
     status = models.CharField(max_length=2,
                             choices=STATUS_CHOICES,
                             default=NOT_STARTED)

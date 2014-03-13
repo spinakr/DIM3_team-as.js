@@ -12,7 +12,7 @@
 		<div class="category-column" data-category="{{category.name}}">
 			<ul class="inner-container">
 				{% for requirement in category.requirements %}
-				<li class="requirement-container" data-category="{{requirement.category}}" data-id="{{requirement.regid}}">
+				<li class="requirement-container" id="{{requirement.category}}_{{requirement.regid}}">
 					<b>{{requirement.regid}}: </b>{{ requirement.name }}
 				</li>
 				{% endfor %}

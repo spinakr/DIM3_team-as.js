@@ -132,9 +132,27 @@ def change_category(request):
         requirement.category = category
         requirement.save()
     
-    return HttpResponse("Ajax completed!");
-    
-    
+    return HttpResponse("Updated category!");
 
+@login_required    
+def update_indexes(request):
+    data = None
+    msg = "Ajax failed."
+    if request.method == 'POST':
+        data = request.POST['data']
+    
+    if data:
+        categoryName = data.split("[]=")[0]
+        data = data.replace(categoryName + "[]=", "")
+        data = data.split("&");
+        print data
+        category = Category.objects.get(name=categoryName)
+        for x in xrange(0, len(data)):
+            req = Requirement.objects.get(regid=data[x])
+            req.index = x
+            req.save()
+        msg = "Updated indexes."
+    
+    return HttpResponse(msg);
 
 

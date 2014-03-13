@@ -1,13 +1,33 @@
 var updateCategory = function(requirement) {
 	var category = requirement.closest(".category-column").data("category");
-	requirement.data("category", category);
-	console.log(requirement.data("category"));
+	var currentData = requirement.attr("id");
+	var id = currentData.split("_")[1];
+	requirement.attr("id", category + "_" + id);
+	console.log(requirement.attr("id"));
+};
+
+var updateIndexes = function(sortable) {
+	var url = 'updateindexes/';
+	var data = $(sortable).sortable("serialize");
+	console.log(data);
+	$.ajax({
+		type : "POST",
+		url : url,
+		data : {
+			"data" : data,
+			"csrfmiddlewaretoken" : $("input[name='csrfmiddlewaretoken']").val(),
+		},
+		success : function(msg) {
+			console.log(msg);
+		}
+	});
 };
 
 var doAjax = function(requirement) {
 	var url = 'changecategory/';
-	var reqid = requirement.data("id");
-	var category = requirement.data("category");
+	var data = requirement.attr("id").split("_");
+	var reqid = data[1];
+	var category = data[0];
 	$.ajax({
 		type : "POST",
 		url : url,
@@ -25,7 +45,7 @@ var doAjax = function(requirement) {
 $(function() {
 	$(".inner-container").sortable({
 		connectWith : ".inner-container",
-		revert : true,
+		//revert : true,
 		containment : $("#content"),
 		update : function(event, ui) {
 			//prevent calling calling the method twice
@@ -33,6 +53,7 @@ $(function() {
 				updateCategory(ui.item);
 				doAjax(ui.item);
 			}
+			updateIndexes(this);
 		}
 	}).disableSelection();
 });
