@@ -37,7 +37,6 @@
 							{% else %}
 							<li class="dropdown">
 								<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
-
 								<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
 									<form id="login_form" method="post" action="/recap/login/">
 										{% csrf_token %}
@@ -55,7 +54,6 @@
 										<br />
 
 										<input type="submit" value="submit" />
-                                        <a href="/user/password/reset/">Forgot password</a>
 									</form>
 								</div>
 							</li>

@@ -22,7 +22,6 @@
 	{% endfor %}
 </div>
 
-
     <div class="panel">
         <ul>
             {% for p in participants %}
@@ -31,6 +30,7 @@
             <li>
                 <form class="searchform" action="" method="post">
                     {% csrf_token %}
+
 	                <input id="searchfield" type="text" name="new_user" placeholder="add new" >
                     <input type="submit" style="visibility: hidden;"  />
 
@@ -42,4 +42,4 @@
     <a class="trigger" href="#">Participants</a>
 
 
-{% endblock %}i
+{% endblock %}
