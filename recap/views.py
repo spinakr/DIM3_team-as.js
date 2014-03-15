@@ -119,7 +119,9 @@ def project(request, project_name_url):
     # Group requirements by category
     for category in categorys:
         requirements_by_category.append({"name":category.name, 
-                                         "requirements":requirements_list.filter(category=category.name)})
+                                         "requirements":requirements_list
+                                                        .filter(category=category.name)
+                                                        .order_by('index')})
     project = get_object_or_404(RecapProject, url=project_name_url)
     participants = User.objects.filter(userprofile__participates_in__url=project_name_url)
 
