@@ -125,7 +125,9 @@ def project(request, project_name_url):
     project = get_object_or_404(RecapProject, url=project_name_url)
     participants = User.objects.filter(userprofile__participates_in__url=project_name_url)
 
-    return render_to_response('recap/project.html', {'participants': participants, 'project': project, 'reqs_by_category' : requirements_by_category}, context)
+    return render_to_response('recap/project.html', {'participants': participants, 
+                                                     'project': project, 
+                                                     'reqs_by_category' : requirements_by_category}, context)
 
 @login_required
 def change_category(request):

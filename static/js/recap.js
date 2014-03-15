@@ -45,7 +45,6 @@ var doAjax = function(requirement) {
 $(function() {
 	$(".inner-container").sortable({
 		connectWith : ".inner-container",
-		//revert : true,
 		containment : $("#content"),
 		update : function(event, ui) {
 			//prevent calling calling the method twice
@@ -58,11 +57,25 @@ $(function() {
 	}).disableSelection();
 });
 
+//Folding columns
+$(function() {
+	$(".minimize-toggle").click(function() {
+		$(this).siblings(".category-column-heading").toggleClass("vertical-rotation");
+		var icon = $(this).children();
+		icon.toggleClass("icon-minus");
+		icon.toggleClass("icon-plus");
+		$(this).parent().siblings(".inner-container").fadeToggle(0);
+		var catColumn = $(this).closest(".category-column");
+		catColumn.toggleClass("span3");
+		catColumn.toggleClass("span1");
+	});
+});
+
 //Create new popup
 ;
 (function($) {
 	$(function() {
-		$('#create_new_button').bind('click', function(e) {
+		$('#create_new_button').on('click', function(e) {
 			e.preventDefault();
 			$('#create_new_prompt').bPopup({
 				easing : 'easeOutBack', //uses jQuery easing plugin

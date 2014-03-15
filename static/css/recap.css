@@ -3,9 +3,39 @@ body {
     background-image:url('/static/img/mooning.png');
 }
 
+.category-column-heading {
+	display: inline-block;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 18px;
+	font-weight: bold;
+	vertical-align: middle;
+	padding-left: 3px;
+}
+
+.vertical-rotation {
+	transform: rotate(90deg);
+	transform-origin: 10% 50%;
+	-ms-transform: rotate(90deg); /* IE 9 */
+	-ms-transform-origin: 19% 50%; /* IE 9 */
+	-webkit-transform: rotate(+90deg); 
+	-webkit-transform-origin: 10% 50%;
+	margin-left: 35%;
+}
+
+.category-column-header {
+	height: 26px;
+}
+
+.minimize-toggle {
+	float: right;
+	margin-left 25%;
+}
+
 .category-column {
 	background-color: #eeeeee;
 	padding: 5px;
+	min-height: 140px !important;
 }
 
 .requirement-container {
@@ -13,6 +43,7 @@ body {
 	min-height: 25px;
 	padding: 3px;
 	margin-top: 3px;
+	cursor: -webkit-grab;
 }
 
 ul.inner-container {
@@ -21,10 +52,6 @@ ul.inner-container {
 	height: 100%;
 	list-style-type: none;
 	margin: 0;
-}
-
-.uppercase {
-	text-transform: uppercase;
 }
 
 li {
