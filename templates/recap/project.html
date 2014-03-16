@@ -12,6 +12,15 @@
 
 <br />
 
+<div id="create_new_prompt">
+	<span class="button b-close"><span>X</span></span>
+	<form action="/recap/{{ project.url }}" method="post">
+		{% csrf_token %}
+		{{ requirement_form.as_p }}
+		<input type="submit" name="new_requirement" value="Submit" />
+	</form>
+</div>
+
 <div id="content" class="row-fluid show-grid">
 	{% for category in reqs_by_category %}
 		<div class="category-column span3" data-category="{{category.name}}">
@@ -23,8 +32,8 @@
 			</div>
 			<ul class="inner-container">
 				{% for requirement in category.requirements %}
-				<li class="requirement-container" id="{{requirement.category}}_{{requirement.regid}}">
-					<a href="/recap/{{ project.url }}/{{ requirement.regid }}"> <b>{{requirement.regid}}: </b> </a>{{ requirement.name }}
+				<li class="requirement-container" id="{{requirement.category}}_{{requirement.reqid}}">
+					<a href="/recap/{{ project.url }}/{{ requirement.reqid }}"> <b>{{requirement.reqid}}: </b> </a>{{ requirement.name }}
 				</li>
 				{% endfor %}
 			</ul>
@@ -44,7 +53,7 @@
 				{% csrf_token %}
 
 				<input id="searchfield" type="text" name="new_user" placeholder="add new" >
-				<input type="submit" style="visibility: hidden;"  />
+				<input type="submit" name="new_participant" style="visibility: hidden;"  />
 
 			</form>
 		</li>

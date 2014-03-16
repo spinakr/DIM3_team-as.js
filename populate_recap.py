@@ -44,9 +44,9 @@ def add_category(name, index):
     return c
 
 
-def add_requirement(regid, name, creation_date, modified_date,
+def add_requirement(reqid, name, creation_date, modified_date,
                     index, status, belongs_to, category, responsible_person):
-    r = Requirement.objects.get_or_create(regid=regid, name=name, creation_date=creation_date,
+    r = Requirement.objects.get_or_create(reqid=reqid, name=name, creation_date=creation_date,
                                           modified_date=modified_date, index=index, status=status,
                                           belongs_to=belongs_to, category=category,
                                           responsible_person=responsible_person)

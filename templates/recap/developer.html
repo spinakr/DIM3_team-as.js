@@ -2,39 +2,32 @@
 {% load static %}
 {% block body_block %}
 
+<span class="project-list-header"> <img src="/static/img/user-icon.png" width="32" height="49"> My projects. </span>
+<!-- Button that triggers the popup -->
 
+<button id="create_new_button">
+	+
+</button>
+<!-- Element to pop up -->
 
-    <span class="project-list-header">
-        <img src="/static/img/user-icon.png" width="32" height="49"> My projects.
-    </span>
-            <!-- Button that triggers the popup -->
+<div id="create_new_prompt">
+	<span class="button b-close"><span>X</span></span>
+	<form action="/recap/" method="post">
+		{% csrf_token %}
+		{{ project_form.as_p }}
+		<input type="submit" value="Submit" />
+	</form>
+</div>
 
-    <button id="create_new_button">+</button>
-            <!-- Element to pop up -->
+<div class="row">
 
+	{% for project in project_list %}
+	<a href="{{ project.url }}">
+	<div class="span3" id="projectbox">
+		{{ project.name }}
+	</div></a>
+	{% endfor %}
 
-
-
-
-
-    <div id="create_new_prompt">
-        <span class="button b-close"><span>X</span></span>
-        <form action="/recap/" method="post">{% csrf_token %}
-            {{ project_form.as_p }}
-            <input type="submit" value="Submit" />
-
-            </form>
-
-    </div>
-
-    <div class="row">
-
-        {% for project in project_list %}
-            <a href="{{ project.url }}"><div class="span3" id="projectbox">{{ project.name }} </div></a>
-        {% endfor %}
-
-    </div>
-
-
+</div>
 
 {% endblock %}

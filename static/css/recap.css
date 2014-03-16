@@ -90,7 +90,7 @@ li {
 }
 
 #create_new_prompt {
-    display:none;
+    display: none;
 	-webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
 	-moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
 	box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
@@ -104,7 +104,7 @@ li {
     padding: 25px;
     left: 550px;
     position: absolute;
-    top: 984.5px;
+    top: -984.5px;
     z-index: 9999;
     display: block;
     opacity: 1;

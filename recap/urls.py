@@ -1,10 +1,8 @@
 from django.conf.urls import patterns, include, url
 from recap import views
 
-
 from django.contrib import admin
 admin.autodiscover()
-
 
 urlpatterns = patterns('',
         url(r'^$', views.index, name='index'),
@@ -30,6 +28,6 @@ urlpatterns = patterns('',
         url(r'(?P<project_name_url>[\w+-]*)/(?P<requirement_name_url>[\w+-]{2,})/edit', views.edit_requirement, name='edit_requirement'),
         url(r'(?P<project_name_url>[\w+-]*)/edit', views.edit_project, name='edit_project'),
         url(r'(?P<project_name_url>[\w+-]*)/(?P<requirement_name_url>[\w+-]{2,})', views.requirement, name='requirement'),
-        url(r'(?P<project_name_url>[\w+-]*)(/*)$', views.project, name='project'),
+        url(r'(?P<project_name_url>[\w+-]*)$', views.project, name='project'),
 
         )
