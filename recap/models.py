@@ -53,7 +53,7 @@ class Requirement(models.Model):
         (IMPEDED, 'Impeded'),
         (DONE, 'Done'),
     )
-    regid = models.CharField(max_length=10, primary_key=True)
+    reqid = models.CharField(max_length=10, primary_key=True)
     name = models.CharField(max_length=128)
     description = models.TextField(blank=True)
     creation_date = models.DateField();
@@ -68,6 +68,6 @@ class Requirement(models.Model):
                                            null=True, blank=True, on_delete=models.SET_NULL)
     
     def __unicode__(self):
-        return self.regid
+        return self.reqid
     
 

@@ -1,10 +1,12 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from recap.forms import UserForm, UserProfileForm, ProjectForm
+from django.core.urlresolvers import reverse
+from recap.forms import UserForm, UserProfileForm, ProjectForm, RequirementForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from recap.models import RecapProject, UserProfile, User, Requirement, Category
+import datetime
 
 
 def index(request):
@@ -108,27 +110,57 @@ def project(request, project_name_url):
     context = RequestContext(request)
     # if new participant added:
     if request.method == 'POST':
-        new_user = request.POST['new_user']
-        userprofil = get_object_or_404(UserProfile, user__username=new_user)
-        project1 = RecapProject.objects.get(url=project_name_url)
-        userprofil.participates_in.add(project1)
-
+        if(request.POST.__contains__('new_participant')):
+            new_participant(request, project_name_url)
+        if(request.POST.__contains__('new_requirement')):
+            reqForm = RequirementForm(data=request.POST)
+            newRequirementAdded = new_requirement(reqForm, project_name_url)
+    else:
+        reqForm = RequirementForm()
     requirements_by_category = []
     categorys = Category.objects.all().order_by('index')
     requirements_list = Requirement.objects.filter(belongs_to=project_name_url)
     # Group requirements by category
     for category in categorys:
-        requirements_by_category.append({"name":category.name, 
+        requirements_by_category.append({"name":category.name,
                                          "requirements":requirements_list
                                                         .filter(category=category.name)
                                                         .order_by('index')})
     project = get_object_or_404(RecapProject, url=project_name_url)
     participants = User.objects.filter(userprofile__participates_in__url=project_name_url)
+    
+    if request.method == 'POST' and newRequirementAdded:
+        return HttpResponseRedirect(reverse('project', args=[project_name_url]), 
+                                    render_to_response('recap/project.html', {'participants': participants,
+                                                         'project': project,
+                                                         'reqs_by_category' : requirements_by_category,
+                                                         'requirement_form' : reqForm}, context))    
+    else:
+        return render_to_response('recap/project.html', {'participants': participants,
+                                                         'project': project,
+                                                         'reqs_by_category' : requirements_by_category,
+                                                         'requirement_form' : reqForm}, context)
 
-    return render_to_response('recap/project.html', {'participants': participants, 
-                                                     'project': project, 
-                                                     'reqs_by_category' : requirements_by_category}, context)
+def new_participant(request, project_name_url):
+    new_user = request.POST['new_user']
+    userprofil = get_object_or_404(UserProfile, user__username=new_user)
+    project1 = RecapProject.objects.get(url=project_name_url)
+    userprofil.participates_in.add(project1)
 
+def new_requirement(requirement_form, project_name_url):
+    if(requirement_form.is_valid()):
+        requirement_data = requirement_form.save(commit=False)
+        requirement_data.creation_date = datetime.datetime.now()
+        requirement_data.modified_date = datetime.datetime.now()
+        requirement_data.index = Requirement.objects.filter(belongs_to=project_name_url).filter(category=requirement_data.category).count()
+        req_index = Requirement.objects.filter(belongs_to=project_name_url).count() + 1
+        requirement_data.reqid = project_name_url.upper()[:3] + str(req_index)
+        requirement_data.belongs_to = RecapProject.objects.get(url=project_name_url)
+        requirement_data.save()
+        return True;
+    else:
+        return False;
+    
 @login_required
 def change_category(request):
     context = RequestContext(request)
@@ -139,7 +171,7 @@ def change_category(request):
         category = request.POST['category']
     
     if req_id and category:
-        requirement = Requirement.objects.get(regid=req_id)
+        requirement = Requirement.objects.get(reqid=req_id)
         category = Category.objects.get(name=category)
         requirement.category = category
         requirement.save()
@@ -160,7 +192,7 @@ def update_indexes(request):
         print data
         category = Category.objects.get(name=categoryName)
         for x in xrange(0, len(data)):
-            req = Requirement.objects.get(regid=data[x])
+            req = Requirement.objects.get(reqid=data[x])
             req.index = x
             req.save()
         msg = "Updated indexes."
@@ -171,24 +203,24 @@ def update_indexes(request):
 def requirement(request, project_name_url, requirement_name_url):
     context = RequestContext(request)
     project_name = project_name_url
-    requirement_object = Requirement.objects.get(regid=requirement_name_url)
+    requirement_object = Requirement.objects.get(reqid=requirement_name_url)
     return render_to_response('recap/requirement.html', {'req_url': requirement_name_url, 'req_obj': requirement_object, 'project': project_name}, context)
 
 
 def edit_requirement(request, project_name_url, requirement_name_url):
     if request.method == 'POST':
-        data=request.POST['sdf']
+        data = request.POST['sdf']
 
     context = RequestContext(request)
     pro = RecapProject.objects.get(url=project_name_url)
-    req = Requirement.objects.get(regid=requirement_name_url)
+    req = Requirement.objects.get(reqid=requirement_name_url)
 
     return render_to_response('recap/edit_req.html', {'project':pro, 'requirement': req}, context)
 
 
 def edit_project(request, project_name_url):
     if request.method == 'POST':
-        data=request.POST['sdf']
+        data = request.POST['sdf']
 
     context = RequestContext(request)
     pro = RecapProject.objects.get(url=project_name_url)

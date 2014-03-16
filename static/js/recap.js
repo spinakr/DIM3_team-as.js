@@ -72,7 +72,6 @@ $(function() {
 });
 
 //Create new popup
-;
 (function($) {
 	$(function() {
 		$('#create_new_button').on('click', function(e) {
@@ -80,7 +79,8 @@ $(function() {
 			$('#create_new_prompt').bPopup({
 				easing : 'easeOutBack', //uses jQuery easing plugin
 				speed : 450,
-				transition : 'slideDown'
+				transition : 'slideDown',
+				position: ['auto', 40]
 			});
 		});
 	});
