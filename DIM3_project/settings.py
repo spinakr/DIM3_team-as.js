@@ -1,4 +1,5 @@
 import os
+import MySQLdb
 SETTINGS_DIR = os.path.dirname(__file__)
 PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
 PROJECT_PATH = os.path.abspath(PROJECT_PATH)
@@ -34,7 +35,7 @@ else:
             'NAME': 'jaraunio$recap',             # Or path to database file if using sqlite3.
             'USER': 'jaraunio',
             'PASSWORD': '12345a',
-            'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+            'HOST': 'mysql.server',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
             'PORT': '',                      # Set to empty string for default.
         }
     }
