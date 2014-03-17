@@ -9,7 +9,6 @@ var updateCategory = function(requirement) {
 var updateIndexes = function(sortable) {
 	var url = 'updateindexes/';
 	var data = $(sortable).sortable("serialize");
-	console.log(data);
 	$.ajax({
 		type : "POST",
 		url : url,
@@ -19,6 +18,25 @@ var updateIndexes = function(sortable) {
 		},
 		success : function(msg) {
 			console.log(msg);
+		}
+	});
+};
+
+var deleteReq = function(requirement) {
+	var url = 'delete/';
+	var data = requirement.attr("id").split("_");
+	var reqid = data[1];
+	$.ajax({
+		type : "POST",
+		url : url,
+		data : {
+			"req_id" : reqid,
+			"csrfmiddlewaretoken" : $("input[name='csrfmiddlewaretoken']").val(),
+		},
+		success : function(msg) {
+			requirement.remove();
+			console.log(msg);
+			
 		}
 	});
 };
@@ -68,6 +86,27 @@ $(function() {
 		var catColumn = $(this).closest(".category-column");
 		catColumn.toggleClass("span3");
 		catColumn.toggleClass("span1");
+	});
+});
+
+$(function() {
+	$(".inner-container").on("click", ".dropdown-item", function(event) {
+		var action = $(event.target).data("action");
+		if(action === "delete") {
+			console.log("Delete Action!");
+			var requirement = $(event.target).closest(".requirement-container");
+			deleteReq(requirement);
+		}
+		if(action === "edit") {
+			console.log("Edit Action!");
+		}
+		if(action === "set_status") {
+			console.log("Set status Action!");
+		}
+		if(action === "assign_to_self") {
+			console.log("Assign to Self Action!");
+		}
+		
 	});
 });
 
