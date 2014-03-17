@@ -130,18 +130,14 @@ def project(request, project_name_url):
                                                         .order_by('index')})
     project = get_object_or_404(RecapProject, url=project_name_url)
     participants = User.objects.filter(userprofile__participates_in__url=project_name_url)
-    
+    context_dictionary = {'participants': participants,'project': project,
+                                                       'reqs_by_category' : requirements_by_category,
+                                                       'requirement_form' : reqForm}
     if request.method == 'POST' and newRequirementAdded:
         return HttpResponseRedirect(reverse('project', args=[project_name_url]), 
-                                    render_to_response('recap/project.html', {'participants': participants,
-                                                         'project': project,
-                                                         'reqs_by_category' : requirements_by_category,
-                                                         'requirement_form' : reqForm}, context))    
+                                    render_to_response('recap/project.html', context_dictionary, context))    
     else:
-        return render_to_response('recap/project.html', {'participants': participants,
-                                                         'project': project,
-                                                         'reqs_by_category' : requirements_by_category,
-                                                         'requirement_form' : reqForm}, context)
+        return render_to_response('recap/project.html', context_dictionary, context)
 
 def new_participant(request, project_name_url):
     new_user = request.POST['new_user']
@@ -163,6 +159,7 @@ def new_requirement(requirement_form, project_name_url):
     else:
         return False;
 
+@login_required
 def delete_requirement(request):
     req_id = None
     if request.method == 'POST':
@@ -206,6 +203,48 @@ def update_indexes(request):
     
     return HttpResponse(msg);
 
+def mapStatus(status):
+    return {
+        'status_not_started' : 'NS',
+        'status_in_progress' : 'IP',
+        'status_impeded' : 'IM',
+        'status_done' : 'DO'
+    }.get(status, 'NS')
+
+@login_required
+def change_status(request):
+    req_id = None 
+    status = None
+    msg = "Ajax failed."
+    if request.method == 'POST':
+         req_id = request.POST['req_id']
+         status = request.POST['status']
+    
+    if req_id and status:
+       req = Requirement.objects.get(reqid=req_id)
+       req.status = mapStatus(status);
+       req.save()
+       msg = "Updated status."
+    
+    return HttpResponse(msg);
+
+@login_required
+def change_assignment(request):
+    req_id = None 
+    status = None
+    msg = "Ajax failed."
+    if request.method == 'POST':
+         req_id = request.POST['req_id']
+    
+    if req_id:
+       req = Requirement.objects.get(reqid=req_id)
+       user = User.objects.get(username=request.user.username)
+       req.responsible_person = user
+       req.save()
+       msg = "Updated assignment."
+    
+    return HttpResponse(msg);
+
 @login_required
 def requirement(request, project_name_url, requirement_name_url):
     context = RequestContext(request)
@@ -213,7 +252,7 @@ def requirement(request, project_name_url, requirement_name_url):
     requirement_object = Requirement.objects.get(reqid=requirement_name_url)
     return render_to_response('recap/requirement.html', {'req_url': requirement_name_url, 'req_obj': requirement_object, 'project': project_name}, context)
 
-
+@login_required
 def edit_requirement(request, project_name_url, requirement_name_url):
     if request.method == 'POST':
         data = request.POST['sdf']
@@ -224,7 +263,7 @@ def edit_requirement(request, project_name_url, requirement_name_url):
 
     return render_to_response('recap/edit_req.html', {'project':pro, 'requirement': req}, context)
 
-
+@login_required
 def edit_project(request, project_name_url):
     if request.method == 'POST':
         data = request.POST['sdf']
