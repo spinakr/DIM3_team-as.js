@@ -108,6 +108,8 @@ def user_logout(request):
 @login_required
 def project(request, project_name_url):
     context = RequestContext(request)
+    reqForm = RequirementForm()
+    newRequirementAdded = None
     # if new participant added:
     if request.method == 'POST':
         if(request.POST.__contains__('new_participant')):
@@ -141,7 +143,10 @@ def project(request, project_name_url):
 
 def new_participant(request, project_name_url):
     new_user = request.POST['new_user']
-    userprofil = get_object_or_404(UserProfile, user__username=new_user)
+    try:
+        userprofil = UserProfile.objects.get(user__username=new_user)
+    except UserProfile.DoesNotExist:
+        return
     project1 = RecapProject.objects.get(url=project_name_url)
     userprofil.participates_in.add(project1)
 
@@ -258,13 +263,21 @@ def requirement(request, project_name_url, requirement_name_url):
 @login_required
 def edit_requirement(request, project_name_url, requirement_name_url):
     if request.method == 'POST':
-        data = request.POST['sdf']
+        req = Requirement.objects.get(reqid=requirement_name_url)
+        newName = request.POST['name']
+        newDesc = request.POST['description']
+        if newName:
+            req.name = newName
+        if newDesc:
+            req.description = newDesc
+        req.save()
 
     context = RequestContext(request)
     pro = RecapProject.objects.get(url=project_name_url)
     req = Requirement.objects.get(reqid=requirement_name_url)
+    requirement_form = RequirementForm()
 
-    return render_to_response('recap/edit_req.html', {'project':pro, 'requirement': req}, context)
+    return render_to_response('recap/edit_req.html', {'project':pro, 'requirement': req, 'requirement_form': requirement_form}, context)
 
 @login_required
 def edit_project(request, project_name_url):
