@@ -115,6 +115,8 @@ def project(request, project_name_url):
         if(request.POST.__contains__('new_requirement')):
             reqForm = RequirementForm(data=request.POST)
             newRequirementAdded = new_requirement(reqForm, project_name_url)
+        if(request.POST.__contains__('del_requirement')):
+            delete_requirement(request)
     else:
         reqForm = RequirementForm()
     requirements_by_category = []
@@ -160,10 +162,16 @@ def new_requirement(requirement_form, project_name_url):
         return True;
     else:
         return False;
-    
+
+def delete_requirement(request):
+    req_id = None
+    if request.method == 'POST':
+        req_id = request.POST['req_id']
+        Requirement.objects.get(reqid=req_id).delete()
+    return HttpResponse('Deleted: ' + req_id)
+        
 @login_required
 def change_category(request):
-    context = RequestContext(request)
     req_id = None
     category = None
     if request.method == 'POST':
@@ -189,7 +197,6 @@ def update_indexes(request):
         categoryName = data.split("[]=")[0]
         data = data.replace(categoryName + "[]=", "")
         data = data.split("&");
-        print data
         category = Category.objects.get(name=categoryName)
         for x in xrange(0, len(data)):
             req = Requirement.objects.get(reqid=data[x])

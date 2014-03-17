@@ -33,7 +33,20 @@
 			<ul class="inner-container">
 				{% for requirement in category.requirements %}
 				<li class="requirement-container" id="{{requirement.category}}_{{requirement.reqid}}">
-					<a href="/recap/{{ project.url }}/{{ requirement.reqid }}"> <b>{{requirement.reqid}}: </b> </a>{{ requirement.name }}
+					<div class="req-dropdown-toggle dropdown">
+						<a href="#" data-toggle="dropdown"><i class="icon-chevron-down"></i></a> 
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+  							<li><a class="dropdown-item" data-action="edit" tabindex="-1" href="#">Edit</a></li>
+  							<li><a class="dropdown-item" data-action="set_status" tabindex="-1" href="#">Set status</a></li>
+  							<li><a class="dropdown-item" data-action="assign_to_self" tabindex="-1" href="#">Assign to Self</a></li>
+  							<li class="divider"></li>
+  							<li><a class="dropdown-item" data-action="delete" tabindex="-1" href="#">Delete</a></li>
+						</ul>
+					</div>
+					<a href="/recap/{{ project.url }}/{{ requirement.reqid }}">
+						<b>{{requirement.reqid}}: </b>
+					</a>
+					{{ requirement.name }}
 				</li>
 				{% endfor %}
 			</ul>
