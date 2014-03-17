@@ -205,10 +205,10 @@ def update_indexes(request):
 
 def mapStatus(status):
     return {
-        'status_not_started' : 'NS',
-        'status_in_progress' : 'IP',
-        'status_impeded' : 'IM',
-        'status_done' : 'DO'
+        'status_not_started' : Requirement.NOT_STARTED,
+        'status_in_progress' : Requirement.IN_PROGRESS,
+        'status_impeded' : Requirement.IMPEDED,
+        'status_done' : Requirement.DONE
     }.get(status, 'NS')
 
 @login_required
@@ -220,13 +220,16 @@ def change_status(request):
          req_id = request.POST['req_id']
          status = request.POST['status']
     
+    style = None;
+    status_str = None;
     if req_id and status:
        req = Requirement.objects.get(reqid=req_id)
-       req.status = mapStatus(status);
+       req.status = mapStatus(status)
        req.save()
-       msg = "Updated status."
+       status_str = req.get_status_str()
+       style = req.get_style()
     
-    return HttpResponse(msg);
+    return HttpResponse(style + "#" + status_str)
 
 @login_required
 def change_assignment(request):
