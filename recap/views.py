@@ -108,6 +108,8 @@ def user_logout(request):
 @login_required
 def project(request, project_name_url):
     context = RequestContext(request)
+    reqForm = RequirementForm()
+    newRequirementAdded = None
     # if new participant added:
     if request.method == 'POST':
         if(request.POST.__contains__('new_participant')):
@@ -141,7 +143,10 @@ def project(request, project_name_url):
 
 def new_participant(request, project_name_url):
     new_user = request.POST['new_user']
-    userprofil = get_object_or_404(UserProfile, user__username=new_user)
+    try:
+        userprofil = UserProfile.objects.get(user__username=new_user)
+    except UserProfile.DoesNotExist:
+        return
     project1 = RecapProject.objects.get(url=project_name_url)
     userprofil.participates_in.add(project1)
 
