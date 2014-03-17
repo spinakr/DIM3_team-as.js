@@ -3,14 +3,41 @@
 {% block body_block %}
 <div class="hero-unit">
     <h1>About</h1>
-    <p>ReCap is a collaborative tool that allows developers(and not only) to organise their projects into boards.
-       Users can create an account and then add any number of projects, as well as add members to them. The user page
-       provides and overview of projects the developer is currently engaged in and provides the possibility of adding
-       new ones. The project page, designed to look like a board, contains the requirements, which are grouped based on
-       the MoSCoW method (must have/should have/could have/would have). Also, each requirement has its own unique id and 
-       a progress status. Users can assign these requirements to other project members, or themselves and make use of the 
-       drag-and-drop functionality to move them to a different category.
+    <!DOCTYPE html>
+<html>
+<body>
+
+<h1>About</h1>
+<h2>ReCap</h2>
+<p> ReCap is a synergetic tool that allows developers(and not only) to organise their projects into boards. 
+    Crea1ng	the	speciﬁca1ons list and capturing the	requirements of	a system is	a collaborative and ongoing
+    process. The aim of this application is to help collect these requirements and specifications in a simple
+    manner, similar to a collaborative TODO list. 
+</p>
+
+
+<h2>Developer Page</h2>
+<p> On the developer page, users can see the projects they are currently engaged in, and also add new ones. Each project 
+    has a name, a description and a number of members that participate in it.
+</p>
+
+
+<h2>Project Page</h2>
+<p> The project page, designed to look like a board, contains the requirements, which are grouped based on
+    the MoSCoW method (must have/should have/could have/would have). When adding a requirement, the user must 
+    specify a name(which will appear in the list), a description(optional), a category, and a responsible person(optional).
+    Each requirement has its own unique id, which is generated automatically and is formed by the first 3 letters of the 
+    project name and a number (which represents the number of the requirement in the order it was added).
+    Users can assign these requirements to other project members, or to themselves, and make use
+    of the drag-and-drop functionality to move them to a different category.The MoSCoW lists of requirements can also 
+    be collapsed so that the developer can choose which ones to display fully, hence allowing him to focus on certain 
+    categories (for instance, only see the ones that are must haves). Users also have the possibility of editing the project
+    (for instance, changing its name, etc.).
     </p>
+
+</body>
+</html>
+
 </div>
 
 <div class="row-fluid">
