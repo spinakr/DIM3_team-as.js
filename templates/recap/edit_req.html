@@ -3,10 +3,16 @@
 {% block body_block %}
 
     <h1>EDIT</h1>
-    <h2>{{ requirement.name }}</h2>
-    <h2>{{ requirement.creation_date }}</h2>
+    <h2>Requirement: {{ requirement.name }}</h2>
+    <form action="/recap/{{ project.url }}/{{ requirement.reqid }}/edit" method="post">
+    {% csrf_token %}
+    New name: <br />
+    <input type="text" name="name"><br>
+    New description:<br />
+    {{ requirement_form.description }}<br />
+    <p><input type="submit" value="Save" /></p>
+    </form>
 
-    <h2>{{ project.name }}</h2>
 
 
 <!--/row-->

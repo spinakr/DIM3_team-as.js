@@ -268,13 +268,21 @@ def requirement(request, project_name_url, requirement_name_url):
 @login_required
 def edit_requirement(request, project_name_url, requirement_name_url):
     if request.method == 'POST':
-        data = request.POST['sdf']
+        req = Requirement.objects.get(reqid=requirement_name_url)
+        newName = request.POST['name']
+        newDesc = request.POST['description']
+        if newName:
+            req.name = newName
+        if newDesc:
+            req.description = newDesc
+        req.save()
 
     context = RequestContext(request)
     pro = RecapProject.objects.get(url=project_name_url)
     req = Requirement.objects.get(reqid=requirement_name_url)
+    requirement_form = RequirementForm()
 
-    return render_to_response('recap/edit_req.html', {'project':pro, 'requirement': req}, context)
+    return render_to_response('recap/edit_req.html', {'project':pro, 'requirement': req, 'requirement_form': requirement_form}, context)
 
 @login_required
 def edit_project(request, project_name_url):
