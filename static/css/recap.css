@@ -39,11 +39,19 @@ body {
 }
 
 .requirement-container {
+	position: relative; 
 	background-color: #FCFCFC;
-	min-height: 25px;
+	min-height: 40px;
 	padding: 3px;
 	margin-top: 3px;
 	cursor: -webkit-grab;
+}
+
+.status-label {
+	position: absolute;
+	bottom: 0px;
+	right: 5px;
+	background-color: #FCFCFC;
 }
 
 ul.inner-container {

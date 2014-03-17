@@ -40,21 +40,23 @@
   							<li class="dropdown-submenu">
   								<a tabindex="-1" href="#">Set status</a>
 								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" data-action="status_not_started" tabindex="-1" href="#">Not started</a></li>
-									<li><a class="dropdown-item" data-action="status_in_progress" tabindex="-1" href="#">In progress</a></li>
-									<li><a class="dropdown-item" data-action="status_impeded" tabindex="-1" href="#">Impeded</a></li>
-									<li><a class="dropdown-item" data-action="status_done" tabindex="-1" href="#">Done</a></li>
+									<li><a class="dropdown-item muted" data-action="status_not_started" tabindex="-1" href="#">Not started</a></li>
+									<li><a class="dropdown-item text-info" data-action="status_in_progress" tabindex="-1" href="#">In progress</a></li>
+									<li><a class="dropdown-item text-error" data-action="status_impeded" tabindex="-1" href="#">Impeded</a></li>
+									<li><a class="dropdown-item text-success" data-action="status_done" tabindex="-1" href="#">Done</a></li>
 								</ul>  								
   							</li>
   							<li><a class="dropdown-item" data-action="assign_to_self" tabindex="-1" href="#">Assign to Self</a></li>
   							<li class="divider"></li>
   							<li><a class="dropdown-item" data-action="delete" tabindex="-1" href="#">Delete</a></li>
 						</ul>
+						<br>
 					</div>
 					<a href="/recap/{{ project.url }}/{{ requirement.reqid }}">
 						<b>{{requirement.reqid}}: </b>
 					</a>
 					{{ requirement.name }}
+					<span class="status-label {{ requirement.get_style }}"><small>{{ requirement.get_status_str }}</small></span>
 				</li>
 				{% endfor %}
 			</ul>

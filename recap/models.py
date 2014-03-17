@@ -53,6 +53,12 @@ class Requirement(models.Model):
         (IMPEDED, 'Impeded'),
         (DONE, 'Done'),
     )
+    STATUS_CHOICES_DICT = {
+        NOT_STARTED  : {'string' : 'Not started', 'style' : 'muted'},
+        IN_PROGRESS : {'string' : 'In progress', 'style' : 'text-info'},
+        IMPEDED : {'string' : 'Impeded', 'style' : 'text-error'},
+        DONE : {'string' : 'Done', 'style' : 'text-success'}
+    }
     reqid = models.CharField(max_length=10, primary_key=True)
     name = models.CharField(max_length=128)
     description = models.TextField(blank=True)
@@ -70,4 +76,9 @@ class Requirement(models.Model):
     def __unicode__(self):
         return self.reqid
     
+    def get_status_str(self):
+        return self.STATUS_CHOICES_DICT[self.status]['string'];
+    
+    def get_style(self):
+        return self.STATUS_CHOICES_DICT[self.status]['style'];
 

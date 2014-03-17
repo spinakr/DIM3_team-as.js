@@ -45,6 +45,11 @@ var recap = {
 				"csrfmiddlewaretoken" : self.csrftoken,
 			},
 			success : function(msg) {
+				msg = msg.split("#");
+				var style_class = msg[0];
+				var status = msg[1];
+				var label = requirement.children(".status-label").removeClass().addClass("status-label " + style_class);
+				label.children("small").html(status);
 				console.log(msg);
 
 			}
