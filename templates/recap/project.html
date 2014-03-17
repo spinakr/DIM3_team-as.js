@@ -37,7 +37,15 @@
 						<a href="#" data-toggle="dropdown"><i class="icon-chevron-down"></i></a> 
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
   							<li><a class="dropdown-item" data-action="edit" tabindex="-1" href="#">Edit</a></li>
-  							<li><a class="dropdown-item" data-action="set_status" tabindex="-1" href="#">Set status</a></li>
+  							<li class="dropdown-submenu">
+  								<a tabindex="-1" href="#">Set status</a>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" data-action="status_not_started" tabindex="-1" href="#">Not started</a></li>
+									<li><a class="dropdown-item" data-action="status_in_progress" tabindex="-1" href="#">In progress</a></li>
+									<li><a class="dropdown-item" data-action="status_impeded" tabindex="-1" href="#">Impeded</a></li>
+									<li><a class="dropdown-item" data-action="status_done" tabindex="-1" href="#">Done</a></li>
+								</ul>  								
+  							</li>
   							<li><a class="dropdown-item" data-action="assign_to_self" tabindex="-1" href="#">Assign to Self</a></li>
   							<li class="divider"></li>
   							<li><a class="dropdown-item" data-action="delete" tabindex="-1" href="#">Delete</a></li>

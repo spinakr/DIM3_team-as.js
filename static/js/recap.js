@@ -1,64 +1,114 @@
-var updateCategory = function(requirement) {
-	var category = requirement.closest(".category-column").data("category");
-	var currentData = requirement.attr("id");
-	var id = currentData.split("_")[1];
-	requirement.attr("id", category + "_" + id);
-	console.log(requirement.attr("id"));
+var recap = {
+	
+	init : function() {
+		this.csrftoken = $("input[name='csrfmiddlewaretoken']").val();
+	},
+	
+	getReqId : function(requirement) {
+		var data = requirement.attr("id").split("_");
+		return data[1];
+	},
+	
+	updateCategory : function(requirement) {
+		var category = requirement.closest(".category-column").data("category");
+		var id = this.getReqId(requirement);
+		requirement.attr("id", category + "_" + id);
+		console.log(requirement.attr("id"));
+	},
+
+	updateIndexes : function(sortable) {
+		var self = this;
+		var url = 'updateindexes/';
+		var data = $(sortable).sortable("serialize");
+		$.ajax({
+			type : "POST",
+			url : url,
+			data : {
+				"data" : data,
+				"csrfmiddlewaretoken" : self.csrftoken,
+			},
+			success : function(msg) {
+				console.log(msg);
+			}
+		});
+	},
+	
+	changeStatus : function(requirement, status) {
+		var self = this;
+		var reqid = this.getReqId(requirement);
+		$.ajax({
+			type : "POST",
+			url : 'changestatus/',
+			data : {
+				"req_id" : reqid,
+				"status" : status,
+				"csrfmiddlewaretoken" : self.csrftoken,
+			},
+			success : function(msg) {
+				console.log(msg);
+
+			}
+		});
+	},
+	
+	changeAssignment : function(requirement) {
+		var self = this;
+		var reqid = this.getReqId(requirement);
+		$.ajax({
+			type : "POST",
+			url : 'assign/',
+			data : {
+				"req_id" : reqid,
+				"csrfmiddlewaretoken" : self.csrftoken,
+			},
+			success : function(msg) {
+				console.log(msg);
+
+			}
+		});
+	},
+	
+	deleteReq : function(requirement) {
+		var self = this;
+		var reqid = this.getReqId(requirement);
+		$.ajax({
+			type : "POST",
+			url : 'delete/',
+			data : {
+				"req_id" : reqid,
+				"csrfmiddlewaretoken" : self.csrftoken,
+			},
+			success : function(msg) {
+				requirement.remove();
+				console.log(msg);
+
+			}
+		});
+	},
+
+	doAjax : function(requirement) {
+		var self = this;
+		var url = 'changecategory/';
+		var data = requirement.attr("id").split("_");
+		var reqid = data[1];
+		var category = data[0];
+		$.ajax({
+			type : "POST",
+			url : url,
+			data : {
+				"req_id" : reqid,
+				"category" : category,
+				"csrfmiddlewaretoken" : self.csrftoken,
+			},
+			success : function(msg) {
+				console.log(msg);
+			}
+		});
+	},
+	
 };
 
-var updateIndexes = function(sortable) {
-	var url = 'updateindexes/';
-	var data = $(sortable).sortable("serialize");
-	$.ajax({
-		type : "POST",
-		url : url,
-		data : {
-			"data" : data,
-			"csrfmiddlewaretoken" : $("input[name='csrfmiddlewaretoken']").val(),
-		},
-		success : function(msg) {
-			console.log(msg);
-		}
-	});
-};
-
-var deleteReq = function(requirement) {
-	var url = 'delete/';
-	var data = requirement.attr("id").split("_");
-	var reqid = data[1];
-	$.ajax({
-		type : "POST",
-		url : url,
-		data : {
-			"req_id" : reqid,
-			"csrfmiddlewaretoken" : $("input[name='csrfmiddlewaretoken']").val(),
-		},
-		success : function(msg) {
-			requirement.remove();
-			console.log(msg);
-			
-		}
-	});
-};
-
-var doAjax = function(requirement) {
-	var url = 'changecategory/';
-	var data = requirement.attr("id").split("_");
-	var reqid = data[1];
-	var category = data[0];
-	$.ajax({
-		type : "POST",
-		url : url,
-		data : {
-			"req_id" : reqid,
-			"category" : category,
-			"csrfmiddlewaretoken" : $("input[name='csrfmiddlewaretoken']").val(),
-		},
-		success : function(msg) {
-			console.log(msg);
-		}
-	});
-};
+recap.init();
 
 $(function() {
 	$(".inner-container").sortable({
@@ -67,10 +117,10 @@ $(function() {
 		update : function(event, ui) {
 			//prevent calling calling the method twice
 			if (!ui.sender) {
-				updateCategory(ui.item);
-				doAjax(ui.item);
+				recap.updateCategory(ui.item);
+				recap.doAjax(ui.item);
 			}
-			updateIndexes(this);
+			recap.updateIndexes(this);
 		}
 	}).disableSelection();
 });
@@ -89,24 +139,31 @@ $(function() {
 	});
 });
 
+//Attach event listeners for context menu actions.
 $(function() {
 	$(".inner-container").on("click", ".dropdown-item", function(event) {
 		var action = $(event.target).data("action");
-		if(action === "delete") {
-			console.log("Delete Action!");
-			var requirement = $(event.target).closest(".requirement-container");
-			deleteReq(requirement);
+		var requirement = $(event.target).closest(".requirement-container");
+		switch(action) {
+			case "delete":
+				recap.deleteReq(requirement);
+				break;
+			case "edit":
+				console.log("Edit Action!");
+				break;
+			case "assign_to_self":
+				recap.changeAssignment(requirement);
+				console.log("Assign to Self Action!");
+				break;
+			case "status_not_started":
+			case "status_in_progress":
+			case "status_impeded":
+			case "status_done":
+				console.log("Status: " + action);
+				recap.changeStatus(requirement, action);
+				break;
+			default:
 		}
-		if(action === "edit") {
-			console.log("Edit Action!");
-		}
-		if(action === "set_status") {
-			console.log("Set status Action!");
-		}
-		if(action === "assign_to_self") {
-			console.log("Assign to Self Action!");
-		}
-		
 	});
 });
 
@@ -119,13 +176,13 @@ $(function() {
 				easing : 'easeOutBack', //uses jQuery easing plugin
 				speed : 450,
 				transition : 'slideDown',
-				position: ['auto', 40]
+				position : ['auto', 40]
 			});
 		});
 	});
 })(jQuery);
 
-//slide in panel
+//Slide in panel
 $(document).ready(function() {
 	$(".trigger").click(function() {
 		$(".panel").toggle("fast");
