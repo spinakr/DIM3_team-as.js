@@ -90,6 +90,23 @@ var recap = {
 			}
 		});
 	},
+	
+	addParticipant : function(participant, project) {
+		var self = this;
+		$.ajax({
+			type : "POST",
+			url : project + '/addparticipant/',
+			data : {
+				"new_user" : participant,
+				"csrfmiddlewaretoken" : self.csrftoken,
+			},
+			success : function(msg) {
+				console.log(msg);
+				var html = "<li>" + msg + "</li>";
+				$("#newpartinputs").prepend(html); 
+			}
+		});
+	},
 
 	doAjax : function(requirement) {
 		var self = this;
@@ -168,6 +185,16 @@ $(function() {
 				recap.changeStatus(requirement, action);
 				break;
 			default:
+		}
+	});
+});
+
+$(function() {
+	$("#searchfield").keyup(function(event) {
+		if(event.which == 13) {
+			var participant = $(this).val();
+			var project = $(this).data("project");
+			recap.addParticipant(participant, project);
 		}
 	});
 });

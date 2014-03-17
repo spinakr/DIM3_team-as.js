@@ -71,14 +71,9 @@
 			{{ p.username }}
 		</li>
 		{% endfor %}
-		<li>
-			<form class="searchform" action="" method="post">
-				{% csrf_token %}
-
-				<input id="searchfield" type="text" name="new_user" placeholder="add new" >
-				<input type="submit" name="new_participant" style="visibility: hidden;"  />
-
-			</form>
+		<li id="newpartinputs">
+			<input id="searchfield" data-project="{{ project.url }}" type="text" name="new_user" placeholder="add new" >
+			<input id="newparticipant" type="button" name="new_participant" style="visibility: hidden;"  />
 		</li>
 	</ul>
 
