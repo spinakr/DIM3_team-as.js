@@ -40,13 +40,13 @@ else:
         }
     }
 
-if DEBUG:
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_HOST_USER = '2014recap@gmail.com'
-    EMAIL_HOST_PASSWORD = 'recap12345'
-    EMAIL_PORT = 587
-    EMAIL_USE_TLS = True
-    DEFAULT_FROM_EMAIL = '2014recap@gmail.com'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = '2014recap@gmail.com'
+EMAIL_HOST_PASSWORD = 'recap12345'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = '2014recap@gmail.com'
 
 
 

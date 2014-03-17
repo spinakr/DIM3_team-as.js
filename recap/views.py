@@ -117,8 +117,6 @@ def project(request, project_name_url):
         if(request.POST.__contains__('new_requirement')):
             reqForm = RequirementForm(data=request.POST)
             newRequirementAdded = new_requirement(reqForm, project_name_url)
-        if(request.POST.__contains__('del_requirement')):
-            delete_requirement(request)
     else:
         reqForm = RequirementForm()
     requirements_by_category = []
@@ -141,14 +139,6 @@ def project(request, project_name_url):
     else:
         return render_to_response('recap/project.html', context_dictionary, context)
 
-def new_participant(request, project_name_url):
-    new_user = request.POST['new_user']
-    try:
-        userprofil = UserProfile.objects.get(user__username=new_user)
-    except UserProfile.DoesNotExist:
-        return
-    project1 = RecapProject.objects.get(url=project_name_url)
-    userprofil.participates_in.add(project1)
 
 def new_requirement(requirement_form, project_name_url):
     if(requirement_form.is_valid()):
@@ -163,6 +153,21 @@ def new_requirement(requirement_form, project_name_url):
         return True;
     else:
         return False;
+
+@login_required
+def new_participant(request, project_name_url):
+    new_user = None
+    if request.method == 'POST':
+        new_user = request.POST['new_user']
+    try:
+        userprofil = UserProfile.objects.get(user__username=new_user)
+    except UserProfile.DoesNotExist:
+        return HttpResponse("Failed")
+    project1 = RecapProject.objects.get(url=project_name_url)
+    #if not userprofil.participates_in.get(project1):
+    userprofil.participates_in.add(project1)
+    return HttpResponse(new_user)
+    #return HttpResponse("failed");
 
 @login_required
 def delete_requirement(request):
