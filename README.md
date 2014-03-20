@@ -8,7 +8,7 @@ cd DIM3_team-as.js <br>
 
 Then create a new virtual environment, activate it and import the python requirements: <br>
 virtualenv recap-env <br>
-source recap/bin/activate <br>
+source recap-env/bin/activate <br>
 pip install -r requirements.txt <br>
 
 When this is done, sync the datbase and run the population script: <br>
