@@ -15,7 +15,7 @@
 	<form action="/recap/{{ project.url }}" method="post">
 		{% csrf_token %}
 		{{ requirement_form.as_p }}
-		<input type="submit" name="new_requirement" value="Submit" />
+		<input type="submit" name="new_requirement" value="Create Requirement"/>
 	</form>
 </div>
 
