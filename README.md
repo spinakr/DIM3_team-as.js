@@ -3,6 +3,9 @@ ReCap
 Start off by cloning the repository to your local workspace:
 git clone https://github.com/spinakr/DIM3_team-as.js.git
 
+Go into the newly created directory:
+cd DIM3_team-as.js
+
 Then create a new virtual environment, activate it and import the python requirements:
 mkvirtualenv ReCap
 workon ReCap
