@@ -4,8 +4,8 @@ Start off by cloning the repository to your local workspace:<br>
 git clone https://github.com/spinakr/DIM3_team-as.js.git <br>
 
 Then create a new virtual environment, activate it and import the python requirements: <br>
-mkvirtualenv ReCap <br>
-workon ReCap <br>
+virtualenv recap <br>
+source recap/bin/activate <br>
 pip install -r requirements.txt <br>
 
 When this is done, sync the datbase and run the population script: <br>
