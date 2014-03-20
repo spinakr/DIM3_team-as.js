@@ -1,5 +1,5 @@
 import os
-import MySQLdb
+
 SETTINGS_DIR = os.path.dirname(__file__)
 PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
 PROJECT_PATH = os.path.abspath(PROJECT_PATH)
@@ -17,6 +17,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 if DEBUG:
+    import MySQLdb
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
