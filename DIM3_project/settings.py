@@ -17,7 +17,6 @@ ADMINS = (
 MANAGERS = ADMINS
 
 if DEBUG:
-    import MySQLdb
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -30,6 +29,7 @@ if DEBUG:
         }
     }
 else:
+    import MySQLdb
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
