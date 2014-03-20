@@ -19,3 +19,6 @@ Finaly, run the server.: <br>
 python manage.py runserver <br>
 
 The app should now be accessible at localhost:8000/recap <br>
+
+There are three test-users allready in the system, these are: <br>
+clive, decanter and snotty - all with password "12345".
